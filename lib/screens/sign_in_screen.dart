@@ -1,13 +1,14 @@
 import 'dart:developer';
 
 import 'package:calendar/components/primary_button.dart';
-import 'package:calendar/screens/pin_screen.dart';
 import 'package:calendar/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'main_app.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -62,7 +63,7 @@ class _SignInState extends State<SignIn> {
       GoogleSignInAccount? acc = await googleSignIn.signIn();
       if (acc != null) {
         saveData(acc).whenComplete(() {
-          Get.to(() => const PinScreen());
+          Get.offAll(() => const CalendarApp());
         });
       } else {
         ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(

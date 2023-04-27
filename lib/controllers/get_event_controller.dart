@@ -22,6 +22,9 @@ class GetEventController extends GetxController {
       var controller = Get.put(CalendarController());
       await controller.googleSignIn.signInSilently();
       GoogleSignInAccount? account = controller.googleSignIn.currentUser;
+      var t = await account!.authentication;
+
+      log(t.accessToken!);
       if (account != null) {
         final auth.AuthClient? client =
             await controller.googleSignIn.authenticatedClient();
